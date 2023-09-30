@@ -1,3 +1,3 @@
-export default async function analyzeParagraph(_id, paragraph, isLatin) {
+export default async function analyzeParagraph(_id, word_ids, paragraph, isLatin) {
     return ''
 }

@@ -5,16 +5,19 @@ import { latinToGreek, greekToLatin } from '../js/client/alphabetConversions';
 
 import { useState, useEffect } from 'react';
 import SingleWordDisplay from './SingleWordDisplay';
+import ParagraphDisplay from './ParagraphDisplay';
 
 export default function Reader() {
 
     const [text, setText] = useState('');
     const [isLaunched, setIsLaunched] = useState(false)
-    const maxLength = 500;
+    const maxLength = 250;
 
     const [isLatin, setIsLatin] = useState(true)
 
-    const [singleWordAnalysis, setSingleWordAnalysis] = useState(null)
+    // mutually exclusive
+    const [singleWordAnalysis, setSingleWordAnalysis] = useState(null) 
+    const [paragraphAnalysis, setParagraphAnalysis] = useState(null)
 
     useEffect(() => {
         const cachedLanguage = localStorage.getItem('cachedLanguage');
@@ -58,6 +61,8 @@ export default function Reader() {
                 } else {
                     if (data.isSingleWord) {
                         setSingleWordAnalysis(data.analysis)
+                    } else {
+                        setParagraphAnalysis(data)
                     }
                 }
             } catch (error) {
@@ -95,8 +100,12 @@ export default function Reader() {
                 </div>
             }
             {
-                isLaunched && singleWordAnalysis &&
+                isLaunched && singleWordAnalysis && 
                 <SingleWordDisplay analysis={singleWordAnalysis} reset={reset}/>
+            }
+            {
+                isLaunched && paragraphAnalysis && !singleWordAnalysis &&
+                <ParagraphDisplay data={paragraphAnalysis}/>
             }
         </div>
     );

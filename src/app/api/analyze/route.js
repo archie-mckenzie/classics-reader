@@ -8,7 +8,7 @@ function isValid(body) {
     if (!body) return false;
     if (typeof body.isLatin != 'boolean') return false;
     if (typeof body.text != 'string') return false;
-    if (body.text.length > 500) return false;
+    if (body.text.length > 250) return false;
     return true;
 }
 
@@ -34,11 +34,14 @@ export async function POST(req) {
         })
     } 
 
-    analyzeParagraph(_id, text, body.isLatin)
+    const word_ids = text.split(' ').map(() => `w-${crypto.randomUUID()}`);
+
+    analyzeParagraph(_id, word_ids, text, body.isLatin)
 
     return NextResponse.json({
         "_id": _id,
         "isSingleWord": isSingleWord, // always false
+        "word_ids": word_ids
     })
     
 }
