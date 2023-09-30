@@ -3,6 +3,7 @@
     --background-color: white;
     --roman-color: #9E4D86;
     --greek-color: #4CAF50;
+    --default-border-radius: 5px;
 }
 @media (prefers-color-scheme: dark) {
     /* :root {
@@ -45,21 +46,38 @@ main {
     resize: vertical;
     min-height: 100px;
     background-color: var(--background-color);
-    border-radius: 5px;
+    border-radius: var(--default-border-radius);
     margin: 25px auto;
     color: var(--font-color);
     border: solid 1px var(--font-color);
     font-family: serif;
 }
 
+.submit-button {
+    width: 150px;
+    height: 50px;
+    margin: auto;
+    border-radius: var(--default-border-radius);
+    background-color: white;
+    color: black;
+    border: solid 1px var(--font-color);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .latin-reader {
-    border: solid 1px var(--roman-color);
     letter-spacing: 1.2px;
-    
+}
+.latin-border, .latin-reader {
+    border: solid 1px var(--roman-color);
 }
 
 .greek-reader {
-    border: solid 1px var(--greek-color);
-
     word-spacing: 2px;
 }
+.greek-border, .greek-reader {
+    border: solid 1px var(--greek-color);
+}
+

@@ -7,14 +7,13 @@ import { useState, useEffect } from 'react';
 
 export default function Reader() {
 
-    function setInitialLanguage() {
+    const [isLatin, setIsLatin] = useState(true)
+    useEffect(() => {
         const cachedLanguage = localStorage.getItem('cachedLanguage');
         if (cachedLanguage) {
-            return cachedLanguage == 'latin';
+            setIsLatin(cachedLanguage === 'latin');
         }
-        return true
-    }
-    const [isLatin, setIsLatin] = useState(setInitialLanguage())
+    }, [])
 
     const [text, setText] = useState('');
 
@@ -36,6 +35,11 @@ export default function Reader() {
                 value={text} 
                 onChange={(e) => setText(e.target.value)} 
             />
+            {text && <div className={`submit-button ${text ? (isLatin ? 'latin-border' : 'greek-border') : ''}`}>
+                <div>
+                    Translate
+                </div>
+            </div>}
         </div>
     );
 };
