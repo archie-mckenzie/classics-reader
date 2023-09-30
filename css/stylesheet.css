@@ -1,0 +1,65 @@
+:root {
+    --font-color: black;
+    --background-color: white;
+    --roman-color: #9E4D86;
+    --greek-color: #4CAF50;
+}
+@media (prefers-color-scheme: dark) {
+    /* :root {
+        --font-color: white;
+        --background-color: #161616;
+    } */
+}
+
+body {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    line-height: 1.5;
+    padding: 0 10px;
+    text-align: center;
+    margin: auto;
+    width: 90vw;
+    max-width: 600px;
+    color: var(--font-color);
+    background-color: var(--background-color);
+    
+}
+
+a {
+    color: var(--font-color);
+    text-decoration: none;
+}
+
+main {
+    height: calc(100vh - 70px);
+    font-size: larger;
+}
+
+.reader {
+    font-size: x-large;
+    line-height: 1.5;
+    width: calc(95% - 20px);
+    max-width: calc(95% - 20px);
+    max-height: 60vh;
+    padding: 10px 10px 10px 10px;
+    outline: none;
+    resize: vertical;
+    min-height: 100px;
+    background-color: var(--background-color);
+    border-radius: 5px;
+    margin: 25px auto;
+    color: var(--font-color);
+    border: solid 1px var(--font-color);
+    font-family: serif;
+}
+
+.latin-reader {
+    border: solid 1px var(--roman-color);
+    letter-spacing: 1.2px;
+    
+}
+
+.greek-reader {
+    border: solid 1px var(--greek-color);
+
+    word-spacing: 2px;
+}
