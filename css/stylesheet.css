@@ -6,10 +6,10 @@
     --default-border-radius: 5px;
 }
 @media (prefers-color-scheme: dark) {
-    /* :root {
+    :root {
         --font-color: white;
         --background-color: #161616;
-    } */
+    } 
 }
 
 body {
@@ -47,16 +47,24 @@ main {
     min-height: 100px;
     background-color: var(--background-color);
     border-radius: var(--default-border-radius);
-    margin: 25px auto;
+    margin: 25px auto 0px auto;
     color: var(--font-color);
     border: solid 1px var(--font-color);
     font-family: serif;
 }
 
+.underneath-textarea {
+    text-align: right;
+    color: rgb(128, 128, 128);
+    max-width: calc(95% - 20px);
+    margin: auto;
+    font-size: smaller;
+}
+
 .submit-button {
     width: 150px;
     height: 50px;
-    margin: auto;
+    margin: 25px auto;
     border-radius: var(--default-border-radius);
     background-color: white;
     color: black;
@@ -70,14 +78,35 @@ main {
 .latin-reader {
     letter-spacing: 1.2px;
 }
-.latin-border, .latin-reader {
+.latin-background {
+    color: white;
+    background: var(--roman-color);
+}
+.latin-border, .latin-reader, .latin-background {
     border: solid 1px var(--roman-color);
 }
 
 .greek-reader {
     word-spacing: 2px;
 }
-.greek-border, .greek-reader {
+.greek-background {
+    color: white;
+    background: var(--greek-color);
+}
+.greek-border, .greek-reader, .greek-background {
     border: solid 1px var(--greek-color);
 }
 
+.single-word-display-title {
+    font-weight: bold;
+    font-size: larger;
+}
+.single-word-display {
+    text-align: left;
+    line-height: 2;
+}
+.underneath-single-word-parsing {
+    text-align: left;
+    color: rgb(128, 128, 128);
+    font-size: smaller;
+}

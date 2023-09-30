@@ -9,8 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "ai": "^2.2.14",
+    "encoding": "^0.1.13",
+    "mongodb": "^6.1.0",
+    "next": "latest",
+    "openai": "^4.11.0",
     "react": "latest",
     "react-dom": "latest",
-    "next": "latest"
+    "unidecode": "^0.1.8"
   }
 }

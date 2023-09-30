@@ -1,13 +1,14 @@
 'use client'
 
-import { useEffect } from "react";
 import "../css/LanguageToggle.css";
 
-export default function LanguageToggle({ isLatin, setIsLatin }) {
+export default function LanguageToggle({ isLatin, setIsLatin, readOnly }) {
 
   function toggleLanguage() {
-    localStorage.setItem('cachedLanguage', (!isLatin ? 'latin' : 'greek'));
-    setIsLatin(!isLatin);
+    if (!readOnly) {
+        localStorage.setItem('cachedLanguage', (!isLatin ? 'latin' : 'greek'));
+        setIsLatin(!isLatin) 
+    };
   };
 
   return (
