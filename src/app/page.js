@@ -1,5 +1,4 @@
 import Reader from "../../components/Reader"
-
 import Link from "next/link"
 
 function Header() {
