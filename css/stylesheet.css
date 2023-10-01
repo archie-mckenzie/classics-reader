@@ -31,7 +31,7 @@ a {
 }
 
 main {
-    min-height: calc(100vh - 100px);
+    min-height: calc(100vh - 80px);
     font-size: larger;
 }
 
@@ -133,7 +133,7 @@ hr {
     margin-top: 10px;
     text-align: left;
     color: rgb(128, 128, 128);
-    font-size: small;
+    font-size: smaller;
 }
 
 .clickable-word {
