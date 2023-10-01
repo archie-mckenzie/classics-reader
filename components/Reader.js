@@ -84,7 +84,7 @@ export default function Reader() {
 
     return (
         <div className='reader-container'>
-            <LanguageToggle isLatin={isLatin} setIsLatin={setIsLatin} readOnly={isLaunched}/>
+            <LanguageToggle isLatin={isLatin} setIsLatin={setIsLatin} reset={isLaunched ? reset : null}/>
             <textarea
                 className={`reader ${isLatin ? 'latin-reader' : 'greek-reader'} ${text ? (isLatin ? 'latin-border' : 'greek-border') : ''} ${paragraphAnalysis ? 'grey-text' : ''}`}
                 value={text} 

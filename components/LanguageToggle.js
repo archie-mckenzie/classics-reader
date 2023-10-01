@@ -2,13 +2,14 @@
 
 import "../css/LanguageToggle.css";
 
-export default function LanguageToggle({ isLatin, setIsLatin, readOnly }) {
+export default function LanguageToggle({ isLatin, setIsLatin, reset = null }) {
 
   function toggleLanguage() {
-    if (!readOnly) {
-        localStorage.setItem('cachedLanguage', (!isLatin ? 'latin' : 'greek'));
-        setIsLatin(!isLatin) 
-    };
+    localStorage.setItem('cachedLanguage', (!isLatin ? 'latin' : 'greek'));
+    setIsLatin(!isLatin) 
+    if (reset) {
+      reset()
+    }
   };
 
   return (
