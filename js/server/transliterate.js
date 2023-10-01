@@ -1,3 +1,5 @@
+import { removePunctuation } from './gpt/parse';
+
 const unidecode = require('unidecode');
 
 function hasCombiningReversedCommaAbove(word) {
@@ -14,7 +16,7 @@ function hasCombiningReversedCommaAbove(word) {
 // Transliterate a Greek word into English, so e.g. 'ἀνθρώπων' becomes 'anthropon'
 // e.g. 'Ἡροδότου' becomes 'Herodotou'
 export default function transliterate(word) {
-    const transliteration = unidecode(word);
+    const transliteration = unidecode(removePunctuation(word));
     
     if (hasCombiningReversedCommaAbove(word)) {
       const firstCharIsUpper = transliteration[0].toUpperCase() === transliteration[0];

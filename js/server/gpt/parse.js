@@ -19,7 +19,7 @@ async function getWordsAroundIndex(words, index, numWords) {
     
 }
   
-export default async function parse(word, isLatin, text) {
+export default async function parse(word, isLatin, text, wordIndex) {
 
     const functions = [
         {
@@ -30,7 +30,7 @@ export default async function parse(word, isLatin, text) {
                 "properties": {
                     "analysis": {
                         "type": "string",
-                        "description": "Case, declension or conjugation, tense, mood, voice, person, etc if necessary.",
+                        "description": "Case, gender, declension, conjugation, tense, mood, voice, person, etc if necessary. Comma-separated.",
                     },
                     "meaning": {
                         "type": "string",
@@ -48,7 +48,7 @@ export default async function parse(word, isLatin, text) {
 
     let prompt = '';
     if (text) {
-        const surrounding = await getWordsAroundIndex(text.split(' '), text.indexOf(word), Math.floor(Math.random() * 16) + 15)
+        const surrounding = await getWordsAroundIndex(text.split(' '), wordIndex, Math.floor(Math.random() * 16) + 15)
         prompt += `In the following context:\n\n${surrounding}\n\n`
     }
     prompt += `Be detailed. Analyze the ${isLatin ? 'Latin' : 'Ancient Greek'} word: ${removePunctuation(word)}`

@@ -10,7 +10,7 @@ function Header() {
 
 function Footer() {
   return (
-    <div>
+    <div style={{"minHeight": "50px;"}}>
       <Link href="https://archiemckenzie.com">
           © {new Date().getFullYear()} Archie McKenzie
       </Link>

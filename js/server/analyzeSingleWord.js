@@ -3,10 +3,9 @@ import parse from "./gpt/parse"
 import transliterate from "./transliterate";
 
 export default async function analyzeSingleWord(_id, word, isLatin) {
-
     try {
         const client = await connectToMongoDB;
-        const words = client.db('words').collection(`${isLatin ? 'latin' : 'greek'}_words`);
+        const words = client.db('reader').collection(`${isLatin ? 'latin' : 'greek'}_words`);
         const wordRecord = await words.findOne({ "word": word });
         if (wordRecord) {
             if (isLatin) {

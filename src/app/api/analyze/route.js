@@ -24,7 +24,7 @@ export async function POST(req) {
 
     const text = body.text.trim();
     const isSingleWord = text.includes(' ') ? false : true;
-    const _id = `${isSingleWord ? 'w' : 'p'}-${crypto.randomUUID()}`
+    const _id = isSingleWord ? `w-${crypto.randomUUID()}` : `p-${crypto.createHash('sha256').update(text).digest('hex')}`
 
     if (isSingleWord) {
         return NextResponse.json({
@@ -34,14 +34,22 @@ export async function POST(req) {
         })
     } 
 
-    const word_ids = text.split(' ').map(() => `w-${crypto.randomUUID()}`);
+    const words = text.split(/\s|\n/).map((word, index) => {
+        return {
+            _id: `w-${_id.slice(2, 8)}-${index}-${_id.slice(8)}`,
+            word: word
+        }
+    });
 
-    analyzeParagraph(_id, word_ids, text, body.isLatin)
+    console.log(`Analyzing paragraph:\n\n${text}`)
+
+    analyzeParagraph(_id, text, words, body.isLatin)
 
     return NextResponse.json({
         "_id": _id,
         "isSingleWord": isSingleWord, // always false
-        "word_ids": word_ids
+        "isLatin": body.isLatin,
+        "wordObjects": words
     })
     
 }

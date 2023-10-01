@@ -9,7 +9,7 @@
     :root {
         --font-color: white;
         --background-color: #161616;
-    } 
+    }
 }
 
 body {
@@ -31,8 +31,12 @@ a {
 }
 
 main {
-    height: calc(100vh - 70px);
+    min-height: calc(100vh - 70px);
     font-size: larger;
+}
+
+hr {
+    border: solid 0.5px rgb(128, 128, 128);
 }
 
 .reader {
@@ -51,6 +55,9 @@ main {
     color: var(--font-color);
     border: solid 1px var(--font-color);
     font-family: serif;
+}
+.grey-text {
+    color: rgb(128, 128, 128);
 }
 
 .underneath-textarea {
@@ -102,11 +109,44 @@ main {
     font-size: larger;
 }
 .single-word-display {
+    font-family: serif;
     text-align: left;
     line-height: 2;
+    max-width: calc(95% - 20px);
+    margin: auto;
 }
 .underneath-single-word-parsing {
     text-align: left;
     color: rgb(128, 128, 128);
+    font-size: smaller;
+}
+
+.paragraph-display {
+    font-family: serif;
+    text-align: left;
+    line-height: 2;
+    margin: 25px auto;
+    max-width: calc(95% - 20px);
+    font-size: x-large;
+}
+.underneath-paragraph-word-parsing {
+    margin-top: 10px;
+    text-align: left;
+    color: rgb(128, 128, 128);
+    font-size: small;
+}
+
+.clickable-word {
+    cursor: pointer;
+}
+
+.popup {
+    background-color: var(--background-color);
+    color: var(--font-color);
+    padding: 1rem;
+    border-radius: 5px;
+    text-align: left;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    max-width: 300px;
     font-size: smaller;
 }

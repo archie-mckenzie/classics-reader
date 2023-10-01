@@ -76,19 +76,20 @@ export default function Reader() {
     }
 
     function reset() {
-        setText('')
-        setSingleWordAnalysis(null)
-        setIsLaunched(false)
+        setText('');
+        setSingleWordAnalysis(null);
+        setParagraphAnalysis(null);
+        setIsLaunched(false);
     }
 
     return (
         <div className='reader-container'>
             <LanguageToggle isLatin={isLatin} setIsLatin={setIsLatin} readOnly={isLaunched}/>
             <textarea
-                className={`reader ${text ? (isLatin ? 'latin-reader' : 'greek-reader') : ''}`}
+                className={`reader ${text ? (isLatin ? 'latin-reader' : 'greek-reader') : ''} ${paragraphAnalysis ? 'grey-text' : ''}`}
                 value={text} 
                 onChange={isLaunched ? (event) => {reset(); updateText(event)} : updateText} 
-                placeholder='...'
+                placeholder={isLatin ? 'Arma virumque cano...' : 'μῆνιν ἄειδε θεὰ...'}
             />
             <div className='underneath-textarea'>{maxLength - text.length} characters remaining</div>
             {
