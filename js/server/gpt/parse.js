@@ -19,7 +19,7 @@ async function getWordsAroundIndex(words, index, numWords) {
     
 }
   
-export default async function parse(word, isLatin, text, wordIndex) {
+export default async function parse(word, isLatin, text, wordIndex, englishTranslation) {
 
     const functions = [
         {
@@ -48,10 +48,15 @@ export default async function parse(word, isLatin, text, wordIndex) {
 
     let prompt = '';
     if (text) {
-        const surrounding = await getWordsAroundIndex(text.split(' '), wordIndex, Math.floor(Math.random() * 16) + 15)
-        prompt += `In the following context:\n\n${surrounding}\n\n`
+        const surrounding = await getWordsAroundIndex(text.split(' '), wordIndex, Math.floor(Math.random() * 8) + 7)
+        if (englishTranslation) {
+            prompt += `The following is a ${isLatin ? 'Latin' : 'Ancient Greek'} passage translated into English:\n\n${englishTranslation}\n\n`
+            prompt += `From the above passage, in the following context:\n\n${surrounding}\n\n`
+        } else {
+            prompt += `In the following context:\n\n${surrounding}\n\n`
+        }
     }
-    prompt += `Be detailed. Analyze the ${isLatin ? 'Latin' : 'Ancient Greek'} word: ${removePunctuation(word)}`
+    prompt += `Analyze the ${isLatin ? 'Latin' : 'Ancient Greek'} word in detail: ${removePunctuation(word)}`
     
     console.log(prompt)
     

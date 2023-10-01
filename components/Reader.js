@@ -7,11 +7,35 @@ import { useState, useEffect } from 'react';
 import SingleWordDisplay from './SingleWordDisplay';
 import ParagraphDisplay from './ParagraphDisplay';
 
+function LoadingDots() {
+    
+    const [dots, setDots] = useState('.')
+
+    useEffect(() => {
+        let timer;
+        function updateDots() {
+            setDots((prev) => {
+                if (prev == '...') {
+                    return ''
+                } else {
+                    return `${prev}.`
+                }
+            })
+        };
+        timer = setInterval(updateDots, 333);
+        return () => clearInterval(timer);
+    }, []);
+
+    return (
+        <div className='loading-dots'>{dots}</div>
+    )
+}
+
 export default function Reader() {
 
     const [text, setText] = useState('');
     const [isLaunched, setIsLaunched] = useState(false)
-    const maxLength = 250;
+    const maxLength = 300;
 
     const [isLatin, setIsLatin] = useState(true)
 
@@ -99,6 +123,10 @@ export default function Reader() {
                         Analyze
                     </div>
                 </div>
+            }
+            {
+                isLaunched && !singleWordAnalysis && !paragraphAnalysis &&
+                <LoadingDots />
             }
             {
                 isLaunched && singleWordAnalysis && 

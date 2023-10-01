@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import connectToMongoDB from '../../../../js/server/mongodb';
 import transliterate from '../../../../js/server/transliterate';
-import parse from '../../../../js/server/gpt/parse';
+import parse, { removePunctuation } from '../../../../js/server/gpt/parse';
 
 function isValid(body) {
     if (!body) return false;
@@ -64,18 +64,19 @@ export async function POST(req) {
                 })
             }
         } else {
-            const analysis = await parse(wordObject.word, isLatin, text, wordIndex);
+            const returnedWord = removePunctuation(wordObject.word)
+            const analysis = await parse(wordObject.word, isLatin, text, wordIndex, paragraph.english_translation);
             if (isLatin) {
                 words.insertOne({
                     _id: wordObject._id,
                     text_id: _id,
-                    word: wordObject.word,
+                    word: returnedWord,
                     parsing: analysis.parsing,
                     meaning: analysis.meaning,
                     dictionaryForm: analysis.dictionaryForm
                 })
                 return NextResponse.json({
-                    word: wordObject.word,
+                    word: returnedWord,
                     parsing: analysis.parsing,
                     meaning: analysis.meaning,
                     dictionaryForm: analysis.dictionaryForm
@@ -85,14 +86,14 @@ export async function POST(req) {
                 words.insertOne({
                     _id: wordObject._id,
                     text_id: _id,
-                    word: wordObject.word,
+                    word: returnedWord,
                     parsing: analysis.parsing,
                     meaning: analysis.meaning,
                     transliteration: transliteration,
                     dictionaryForm: analysis.dictionaryForm
                 })
                 return NextResponse.json({
-                    word: wordObject.word,
+                    word: returnedWord,
                     parsing: analysis.parsing,
                     meaning: analysis.meaning,
                     transliteration: transliteration,

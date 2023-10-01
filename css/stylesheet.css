@@ -150,3 +150,13 @@ hr {
     max-width: 300px;
     font-size: smaller;
 }
+
+.loading-dots {
+    font-family: serif;
+    text-align: left;
+    line-height: 2;
+    max-width: calc(95% - 20px);
+    margin: auto;
+    color: rgb(128, 128, 128);
+    font-size: xx-large;
+}
