@@ -89,7 +89,7 @@ hr {
     color: white;
     background: var(--roman-color);
 }
-.latin-border, .latin-reader, .latin-background {
+.latin-border, .latin-background {
     border: solid 1px var(--roman-color);
 }
 
@@ -100,7 +100,7 @@ hr {
     color: white;
     background: var(--greek-color);
 }
-.greek-border, .greek-reader, .greek-background {
+.greek-border, .greek-background {
     border: solid 1px var(--greek-color);
 }
 
