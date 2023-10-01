@@ -3,7 +3,7 @@ import Link from "next/link"
 
 function Header() {
   return (
-    <Link href='/'><h1>Classics Reader</h1></Link>
+    <Link href='/'><h2 className="title">Classics Reader</h2></Link>
   )
 }
 

@@ -35,6 +35,12 @@ main {
     font-size: larger;
 }
 
+.title {
+    margin-top: 30px;
+    margin-bottom: 35px;
+    letter-spacing: 0.8px;
+}
+
 hr {
     border: solid 0.5px rgb(128, 128, 128);
 }
