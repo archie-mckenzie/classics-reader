@@ -171,10 +171,14 @@ export default function ParagraphDisplay({ data = null }) {
                     return <Word wordObject={wordObject} key={index} />
                 })}
             </div>
+            <div className='underneath-paragraph-word-parsing'>
+                <span style={{"fontSize": "smaller", "marginRight": "5px"}}>ⓘ </span> Click on a word to parse it
+            </div>
+            <hr/>
             {
                 shouldDisplayEnglish && englishTranslation && 
                 <div>
-                    <hr/>
+                    
                     {englishTranslation}
                 </div>
             }
