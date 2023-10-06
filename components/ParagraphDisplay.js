@@ -170,9 +170,10 @@ export default function ParagraphDisplay({ data = null }) {
                 {data.wordObjects.map((wordObject, index) => {
                     return <Word wordObject={wordObject} key={index} />
                 })}
-            </div>
-            <div className='underneath-paragraph-word-parsing'>
+                <br/>
+                <span className='underneath-info'>
                 <span style={{"fontSize": "smaller", "marginRight": "5px"}}>ⓘ </span> Click on a word to parse it
+                </span>
             </div>
             <hr/>
             {
@@ -182,7 +183,7 @@ export default function ParagraphDisplay({ data = null }) {
                     {englishTranslation}
                 </div>
             }
-            <div className='underneath-paragraph-word-parsing'>
+            <div className='underneath-info'>
                 <span 
                     style={{"cursor": `${englishTranslation ? 'pointer' : 'normal'}`}}
                     onClick={() => {

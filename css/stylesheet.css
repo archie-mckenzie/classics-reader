@@ -166,3 +166,10 @@ hr {
     color: rgb(128, 128, 128);
     font-size: xx-large;
 }
+
+.underneath-info {
+    margin-top: 10px;
+    text-align: left;
+    color: rgb(128, 128, 128);
+    font-size: medium;
+}
