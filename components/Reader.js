@@ -31,13 +31,13 @@ function LoadingDots() {
     )
 }
 
-export default function Reader() {
+export default function Reader({ language = 'latin' }) {
 
     const [text, setText] = useState('');
     const [isLaunched, setIsLaunched] = useState(false)
     const maxLength = 300;
 
-    const [isLatin, setIsLatin] = useState(true)
+    const [isLatin, setIsLatin] = useState(language == 'latin')
 
     // mutually exclusive
     const [singleWordAnalysis, setSingleWordAnalysis] = useState(null) 

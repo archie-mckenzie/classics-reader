@@ -17,12 +17,13 @@ function Footer() {
   )
 }
 
-export default function App() {
+export default function App( { searchParams } ) {
+
   return (
     <>
       <main>
         <Header />
-        <Reader />
+        <Reader language={searchParams.lang || searchParams.language || 'latin'}/>
       </main>
       <Footer />
     </>
