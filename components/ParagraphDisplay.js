@@ -3,8 +3,6 @@
 import { useState, useEffect } from 'react'
 
 function ParsingWindow({ data = null, position = null }) {
-
-    console.log(data)
     
     if (!data || !data.parsing || !data.meaning || !data.dictionaryForm || !position || !position.top || !position.left) {
         return (
@@ -47,79 +45,89 @@ function ParsingWindow({ data = null, position = null }) {
     );
 }
 
+function Word({ wordObject, isLatin = true, id }) {
+    const [isBold, setIsBold] = useState(false);
+    const [windowPosition, setWindowPosition] = useState({ top: 0, left: 0 });
+    const [parsing, setParsing] = useState(null);
+  
+    const handleClick = (event) => {
+        event.stopPropagation();
+        const wordElement = event.target;
+        const wordRect = wordElement.getBoundingClientRect();
+        const left = Math.min(wordRect.left + window.scrollX, window.innerWidth - 200);
+        const top = wordRect.top + window.scrollY + 30;
+        setWindowPosition({ top, left });
+        setIsBold(true);
+    };
+  
+    const handleGlobalClick = () => {
+      setIsBold(false);
+    };
+  
+    useEffect(() => {
+      window.addEventListener('click', handleGlobalClick);
+      window.addEventListener('resize', handleGlobalClick);
+      return () => {
+        window.removeEventListener('click', handleGlobalClick);
+        window.removeEventListener('resize', handleGlobalClick);
+      };
+    }, []);
+  
+    useEffect(() => {
+      async function fetchParsing() {
+        const response = await fetch('api/parse', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            wordObject: wordObject,
+            isLatin: isLatin,
+            _id: id,
+          }),
+        });
+        const parsing = await response.json()
+        setParsing(parsing)
+      }
+      if (isBold && !parsing) {
+        fetchParsing();
+      }
+    }, [isBold]);
+  
+    return (
+      <>
+        { isBold && parsing &&
+            <ParsingWindow data={parsing} position={windowPosition} />
+        }
+        <span onClick={handleClick} className='clickable-word'>
+          {Array.from(wordObject.word).map((char, index) => {
+            return /\p{L}/u.test(char) ? (
+              <span key={index} style={{ fontWeight: isBold ? 'bold' : 'normal' }}>{char}</span>
+            ) : (
+              <span key={index}>{char}</span>
+            );
+          })}
+          {' '}
+        </span>
+      </>
+    );
+}
 
 export default function ParagraphDisplay({ data = null }) {
 
-    function Word({ wordObject }) {
-        const [isBold, setIsBold] = useState(false);
-        const [windowPosition, setWindowPosition] = useState({ top: 0, left: 0 });
-        const [parsing, setParsing] = useState(null);
-      
-        const handleClick = (event) => {
-            event.stopPropagation();
-            const wordElement = event.target;
-            const wordRect = wordElement.getBoundingClientRect();
-            const left = Math.min(wordRect.left + window.scrollX, window.innerWidth - 200);
-            const top = wordRect.top + window.scrollY + 30;
-            setWindowPosition({ top, left });
-            setIsBold(true);
-        };
-      
-        const handleGlobalClick = () => {
-          setIsBold(false);
-        };
-      
-        useEffect(() => {
-          window.addEventListener('click', handleGlobalClick);
-          window.addEventListener('resize', handleGlobalClick);
-          return () => {
-            window.removeEventListener('click', handleGlobalClick);
-            window.removeEventListener('resize', handleGlobalClick);
-          };
-        }, []);
-      
-        useEffect(() => {
-          async function fetchParsing() {
-            const response = await fetch('api/parse', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                wordObject: wordObject,
-                isLatin: data.isLatin,
-                _id: data._id,
-              }),
-            });
-            const parsing = await response.json()
-            setParsing(parsing)
-          }
-          if (isBold) {
-            fetchParsing();
-          }
-        }, [isBold]);
-      
-        return (
-          <>
-            { isBold && parsing &&
-                <ParsingWindow data={parsing} position={windowPosition} />
-            }
-            <span onClick={handleClick} className='clickable-word'>
-              {Array.from(wordObject.word).map((char, index) => {
-                return /\p{L}/u.test(char) ? (
-                  <span key={index} style={{ fontWeight: isBold ? 'bold' : 'normal' }}>{char}</span>
-                ) : (
-                  <span key={index}>{char}</span>
-                );
-              })}
-              {' '}
-            </span>
-          </>
-        );
-    }
-
     const [displayEnglishText, setDisplayEnglishText] = useState('')
     const [shouldDisplayEnglish, setShouldDisplayEnglish] = useState(false)
+
+    function updateDisplayEnglishText() {
+        setDisplayEnglishText((prev) => {
+            if (prev == '...') {
+                return ''
+            } else {
+                return `${prev}.`
+            }
+        })
+    }
+
     const [englishTranslation, setEnglishTranslation] = useState('');
 
     useEffect(() => {
@@ -142,7 +150,9 @@ export default function ParagraphDisplay({ data = null }) {
             if (result.englishTranslation) {
                 setEnglishTranslation(result.englishTranslation)
                 setDisplayEnglishText('Display English?')
-            } 
+            } else {
+                updateDisplayEnglishText()
+            }
             inProgress = false;
         };
         if (!englishTranslation) {
@@ -155,7 +165,7 @@ export default function ParagraphDisplay({ data = null }) {
         <div className='paragraph-display'>
             <div >
                 {data.wordObjects.map((wordObject, index) => {
-                    return <Word wordObject={wordObject} key={index} />
+                    return <Word wordObject={wordObject} isLatin={data.isLatin} id={data._id} key={index} />
                 })}
                 <br/>
                 <span className='underneath-info'>
