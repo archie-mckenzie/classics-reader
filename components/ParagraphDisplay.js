@@ -120,17 +120,6 @@ export default function ParagraphDisplay({ data = null }) {
 
     const [displayEnglishText, setDisplayEnglishText] = useState('')
     const [shouldDisplayEnglish, setShouldDisplayEnglish] = useState(false)
-
-    function updateDisplayEnglishText() {
-        setDisplayEnglishText((prev) => {
-            if (prev == '...') {
-                return ''
-            } else {
-                return `${prev}.`
-            }
-        })
-    }
-
     const [englishTranslation, setEnglishTranslation] = useState('');
 
     useEffect(() => {
@@ -153,9 +142,7 @@ export default function ParagraphDisplay({ data = null }) {
             if (result.englishTranslation) {
                 setEnglishTranslation(result.englishTranslation)
                 setDisplayEnglishText('Display English?')
-            } else {
-                updateDisplayEnglishText()
-            }
+            } 
             inProgress = false;
         };
         if (!englishTranslation) {
