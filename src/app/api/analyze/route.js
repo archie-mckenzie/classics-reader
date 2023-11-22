@@ -8,7 +8,7 @@ function isValid(body) {
     if (!body) return false;
     if (typeof body.isLatin != 'boolean') return false;
     if (typeof body.text != 'string') return false;
-    if (body.text.length > 300) return false;
+    if (body.text.length > 450) return false;
     return true;
 }
 

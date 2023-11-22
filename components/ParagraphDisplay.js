@@ -149,6 +149,7 @@ export default function ParagraphDisplay({ data = null }) {
             const result = await response.json();
             if (result.englishTranslation) {
                 setEnglishTranslation(result.englishTranslation)
+                setShouldDisplayEnglish(true)
                 setDisplayEnglishText('Display English?')
             } else {
                 updateDisplayEnglishText()

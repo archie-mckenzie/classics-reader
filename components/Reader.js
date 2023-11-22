@@ -35,7 +35,7 @@ export default function Reader({ language = 'latin' }) {
 
     const [text, setText] = useState('');
     const [isLaunched, setIsLaunched] = useState(false)
-    const maxLength = 300;
+    const maxLength = 450;
 
     const [isLatin, setIsLatin] = useState(language == 'latin')
 
